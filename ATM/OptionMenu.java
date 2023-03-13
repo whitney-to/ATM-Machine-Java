@@ -36,6 +36,7 @@ public class OptionMenu {
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("\nInvalid Character(s). Only Numbers.");
+
 			}
 		}
 	}
@@ -47,7 +48,8 @@ public class OptionMenu {
 				System.out.println("\nSelect the account you want to access: ");
 				System.out.println(" Type 1 - Checking Account");
 				System.out.println(" Type 2 - Savings Account");
-				System.out.println(" Type 3 - Exit");
+				System.out.println(" Type 3 - Statements for all Accounts");
+				System.out.println(" Type 4 - Exit");
 				System.out.print("\nChoice: ");
 
 				int selection = menuInput.nextInt();
@@ -60,6 +62,9 @@ public class OptionMenu {
 					getSaving(acc);
 					break;
 				case 3:
+					getStatementsForAllAccounts(acc);
+					break;
+				case 4:
 					end = true;
 					break;
 				default:
@@ -70,6 +75,10 @@ public class OptionMenu {
 				menuInput.next();
 			}
 		}
+	}
+	public void getStatementsForAllAccounts(Account acc) {
+		System.out.println("\nChecking Account Balance: " + moneyFormat.format(acc.getCheckingBalance()));
+		System.out.println("\nSavings Account Balance: " + moneyFormat.format(acc.getSavingBalance()));
 	}
 
 	public void getChecking(Account acc) {
