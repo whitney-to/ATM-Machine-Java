@@ -1,0 +1,28 @@
+{
+  "users" : [
+    {
+      "customerNumber" : 123,
+      "pinNumber" : 123,
+      "checkingAccount" : [
+        { "checkingAccID": 1,
+          "checkingBalance" : 20000}
+      ],
+      "savingAccount" : [
+        {"savingAccID": 1,
+          "savingBalance" : 50000}
+      ]
+    },
+    {
+      "customerNumber" : 952141,
+      "pinNumber" : 191904,
+      "checkingAccount" : [
+        { "checkingAccID": 1,
+          "checkingBalance" : 1000}
+      ],
+      "savingAccount" : [
+        {"savingAccID": 1,
+          "savingBalance" : 5000}
+      ]
+    }
+  ]
+}

@@ -1,4 +1,6 @@
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -8,16 +10,21 @@ public class Account {
 	private int pinNumber;
 	private double checkingBalance = 0;
 	private double savingBalance = 0;
+	private ArrayList<String> transactions;
+
+	Date currrentDate = new Date();
 
 	Scanner input = new Scanner(System.in);
 	DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00");
 
 	public Account() {
+		transactions = new ArrayList<>();
 	}
 
 	public Account(int customerNumber, int pinNumber) {
 		this.customerNumber = customerNumber;
 		this.pinNumber = pinNumber;
+		transactions = new ArrayList<>();
 	}
 
 	public Account(int customerNumber, int pinNumber, double checkingBalance, double savingBalance) {
@@ -25,6 +32,7 @@ public class Account {
 		this.pinNumber = pinNumber;
 		this.checkingBalance = checkingBalance;
 		this.savingBalance = savingBalance;
+		transactions = new ArrayList<>();
 	}
 
 	public int setCustomerNumber(int customerNumber) {
@@ -41,6 +49,16 @@ public class Account {
 		return pinNumber;
 	}
 
+	public void addTransaction(String transaction) {
+		this.transactions.add(transaction);
+	}
+
+	public void printTransaction(){
+		for(String trans : this.transactions){
+			System.out.println(trans);
+		}
+	}
+
 	public int getPinNumber() {
 		return pinNumber;
 	}
@@ -53,34 +71,52 @@ public class Account {
 		return savingBalance;
 	}
 
+	public ArrayList<String> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(ArrayList<String> transactions) {
+		this.transactions = transactions;
+	}
+
 	public double calcCheckingWithdraw(double amount) {
+		double prevBal = checkingBalance;
 		checkingBalance = (checkingBalance - amount);
+		addTransaction(String.format("Withdraw $%.2f from checking | balance $%.2f => $%.2f",amount,prevBal,checkingBalance));
 		return checkingBalance;
 	}
 
 	public double calcSavingWithdraw(double amount) {
+		double prevBal = savingBalance;
 		savingBalance = (savingBalance - amount);
+		addTransaction(String.format("Withdraw $%.2f from saving | balance $%.2f => $%.2f",amount,prevBal,savingBalance));
 		return savingBalance;
 	}
 
 	public double calcCheckingDeposit(double amount) {
+		double prevBal = checkingBalance;
 		checkingBalance = (checkingBalance + amount);
+		addTransaction(String.format("Deposit $%.2f to checking | balance $%.2f => $%.2f",amount,prevBal,checkingBalance));
 		return checkingBalance;
 	}
 
 	public double calcSavingDeposit(double amount) {
+		double prevBal = savingBalance;
 		savingBalance = (savingBalance + amount);
+		addTransaction(String.format("Deposit $%.2f to saving | balance $%.2f => $%.2f",amount,prevBal,savingBalance));
 		return savingBalance;
 	}
 
 	public void calcCheckTransfer(double amount) {
 		checkingBalance = checkingBalance - amount;
 		savingBalance = savingBalance + amount;
+		addTransaction(String.format("Transfer $%.2f from checking to saving",amount));
 	}
 
 	public void calcSavingTransfer(double amount) {
 		savingBalance = savingBalance - amount;
 		checkingBalance = checkingBalance + amount;
+		addTransaction(String.format("Transfer $%.2f from saving to checking",amount));
 	}
 
 	public void getCheckingWithdrawInput() {
@@ -104,7 +140,7 @@ public class Account {
 		}
 	}
 
-	public void getsavingWithdrawInput() {
+	public void getSavingWithdrawInput() {
 		boolean end = false;
 		while (!end) {
 			try {

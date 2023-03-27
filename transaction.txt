@@ -1,0 +1,5 @@
+1234,Withdraw $0.00 from checking | balance $0.00 => $0.00
+1234,Deposit $1000.00 to checking | balance $0.00 => $1000.00
+1234,Withdraw $100.00 from checking | balance $1000.00 => $900.00
+9898,Deposit $100.00 to checking
+9898,Deposit $200.00 to saving
